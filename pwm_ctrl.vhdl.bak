@@ -1,0 +1,43 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+ 
+entity PWM_ctrl is 
+
+PORT( clk: IN std_logic;
+
+		op: OUT std_logic);
+
+end entity;
+ 
+architecture arch of PWM_ctrl is
+
+constant dutcyc:unsigned(7 downto 0):=32;
+
+begin
+
+	process(clk)
+
+	variable count: unsigned( 7 downto 0):=(others=>'0');
+
+	begin
+
+		if(rising_edge(clk))then
+
+			count<=count+1;
+
+			if(count<dutcyc)then
+
+				op<='1';
+
+			else
+
+				op<='0';
+
+			end if;
+
+		end if;
+
+	end process;
+
+end architecture;			
